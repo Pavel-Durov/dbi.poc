@@ -33,6 +33,7 @@
 
 # includes
 drio
+dynamorio
 samples
 
 # artefacts
