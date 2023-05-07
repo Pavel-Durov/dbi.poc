@@ -1,0 +1,14 @@
+g++ -fPIC -shared -nostartfiles -nodefaultlibs -lgcc -DLINUX -DX86_32 -I/home/kimchi/git-repos/research/dynamorio/build/include ./hello_world.cpp 
+
+g++ -DLINUX -DX86_32 -I/home/kimchi/git-repos/research/dynamorio/build/include -L/home/kimchi/git-repos/research/dynamorio/build/lib ./hello_world.cpp 
+
+./libhello_world.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked,, not stripped
+ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, not stripped
+
+# terminated on SIGSEGV
+gdb --args   /home/kimchi/git-repos/research/dynamorio/build/bin64/drrun -- ./libhello_world.so 
+
+
+λ ~/tools/DynamoRIO-Linux-9.0.1/bin64/drrun -c /home/kimchi/git-repos/research/dynamorio/api/bin/libbbsize.so -- ls
+<Application /usr/bin/ls (112591). Client library targets an incompatible API version and should be re-compiled.>
+Floating point exception (core dumped)
