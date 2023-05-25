@@ -1,3 +1,5 @@
+![CI](https://github.com/Pavel-Durov/dynamorio.exp/actions/workflows/ci-cpp.yml/badge.svg)
+
 # dynamorio.exp
 
 Repository containing code and documentation of my DynamoRIO framework experimentation.
@@ -104,3 +106,4 @@ $ drrun -- /bin/bash myscript.sh
 
 - [Submitted documentation link fix](https://github.com/DynamoRIO/dynamorio/pull/6034)
 
+- [Building a Tool] (https://dynamorio.org/page_build_client.html)
