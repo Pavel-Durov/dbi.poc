@@ -1,23 +1,33 @@
 # dynamorio.exp
 
 Repository containing code and documentation of my DynamoRIO framework experimentation.
+## Direnv
+- Make sure you have [direnv](https://direnv.net/)(version >= 2.25.2) installed.
+- Make sure you have [cmake](https://cmake.org/)(version >= 3.22.1) installed.
+- Set `DRIO_HOME` varible in [.envrc](./.envrc), pointing towards where DynamoRIO is located on the machine.
+- Run `direnv allow`
+
 ## Build
 
 ```shell
-$ rm -fr ./build && cmake -DCMAKE_BUILD_TYPE=Debug -S  . -B ./build && pushd build && make && popd
-```
+$ build
+``` 
 
 ## Run
+
 ```shell
-$ source .envrc && drrun -c build/libhello_world_client.so -- ls
+$ run
 ```
 
-# DynamoRIO
+## All-together now
+```shell
+$ direnv allow && build && run
+```
 
-DynamoRIO is a runtime code manipulation system that supports code transformations on any part of a program, while the program is executed. DynamoRIO exports an interface for building dynamic tools for a wide variety of uses: program analysis and understanding, profiling, instrumentation, optimization, translation, etc.
+# Context
+## DynamoRIO
 
-## Arch
-
+DynamoRIO is a runtime code manipulation system that supports code transformations on any part of a program, while the program is executed. DynamoRIO exports an interface for building dynamic tools for a wide variety of uses: program analysis and understanding, profiling, instrumentation, optimization, translation, etc. 
 DynamoRIO operates in user mode on a target process. It acts as a process virtual machine, interposing between the application and the operating system. 
 DynamoRIO has a complete view of the application code stream and acts as a runtime control point, allowing custom tools to be embedded inside it.
 
@@ -32,13 +42,9 @@ flowchart
     DRIO --> HW(Hardware platform)
 ```
 
-## Samples
-
-- https://github.com/DynamoRIO/dynamorio/tree/master/api/samples
-
 # Tutorials
 
-[] API Usage Tutorial - https://dynamorio.org/API_tutorial.html
+[IN PROGRESS] API Usage Tutorial - https://dynamorio.org/API_tutorial_bbdynsize1.html
 
 # Running on Linux
 
@@ -75,7 +81,7 @@ $ drrun -- /bin/bash myscript.sh
 
 [Google Groups](https://groups.google.com/g/dynamorio-users)
 
-## Conversations
+## Realted Google Groups Threads
 
 - https://groups.google.com/g/dynamorio-users/c/Wqx9sKFOn2k
 
@@ -83,6 +89,8 @@ $ drrun -- /bin/bash myscript.sh
 
 # Resources & Links
 - [Debugging](https://dynamorio.org/page_debugging.html#autotoc_md138)
+
+- [Samples](https://github.com/DynamoRIO/dynamorio/tree/master/api/samples)
 
 - https://dynamorio.org
 
