@@ -83,7 +83,7 @@ $ drrun -- /bin/bash myscript.sh
 
 ## Realted Google Groups Threads
 
-- https://groups.google.com/g/dynamorio-users/c/Wqx9sKFOn2k
+- https://groups.google.com/g/dynamorio-users/c/ryuj9Eg1khE
 
 - https://groups.google.com/g/dynamorio-users/c/Wqx9sKFOn2k
 
