@@ -10,13 +10,6 @@ project(hello_world)
 # Directory for dynamoRIO application config files
 make_directory("dynamorio_config")
 
-# set build output
-# set(CMAKE_BINARY_DIR "/bin")
-# set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
-# set(LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-# set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-
 # check for DynamoRIO dependency
 find_package(DynamoRIO)
 if (NOT DynamoRIO_FOUND)
