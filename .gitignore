@@ -56,4 +56,4 @@ client.ldscript
 # build artefacts
 bin
 # cmake build
-bulid
+build
