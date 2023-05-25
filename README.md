@@ -1,4 +1,4 @@
-[![CI](https://github.com/Pavel-Durov/dynamorio.exp/actions/workflows/ci-cpp.yml/badge.svg)
+![CI](https://github.com/Pavel-Durov/dynamorio.exp/actions/workflows/ci-cpp.yml/badge.svg)
 
 # dynamorio.exp
 
