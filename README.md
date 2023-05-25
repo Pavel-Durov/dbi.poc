@@ -1,3 +1,5 @@
+[![CI](https://github.com/Pavel-Durov/dynamorio.exp/actions/workflows/ci-cpp.yml/badge.svg)
+
 # dynamorio.exp
 
 Repository containing code and documentation of my DynamoRIO framework experimentation.
