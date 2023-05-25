@@ -5,17 +5,19 @@ if ("${CMAKE_BUILD_TYPE}" MATCHES "Debug")
   set(DEBUG ON)
 endif ("${CMAKE_BUILD_TYPE}" MATCHES "Debug")
 
-project(client)
+project(hello_world)
 
-set(EXECUTABLE_OUTPUT_PATH  ${PROJECT_SOURCE_DIR}/bin/)
+# Directory for dynamoRIO application config files
+make_directory("dynamorio_config")
 
-add_library(client SHARED ./src/client.cpp)
-
+# check for DynamoRIO dependency
 find_package(DynamoRIO)
 if (NOT DynamoRIO_FOUND)
   message(FATAL_ERROR "dynamically package required to build")
 endif(NOT DynamoRIO_FOUND)
 
-set(DynamoRIO_SET_PREFERRED_BASE ON)
+# hello world
+add_library(hello_world_client SHARED src/hello_world/hello_world_client.cpp)
+add_executable(hello_world "src/hello_world/hello_world_app.cpp")
 
-configure_DynamoRIO_client(client)
+configure_DynamoRIO_client(hello_world_client)
