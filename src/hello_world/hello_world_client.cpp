@@ -1,6 +1,5 @@
 #include "dr_api.h"
 
-
 static void thread_init_event(void *drcontext)
 {
     dr_fprintf(STDOUT, "Hello, from DynamoRIO client !\n");
