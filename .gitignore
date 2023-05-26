@@ -57,3 +57,6 @@ client.ldscript
 bin
 # cmake build
 build
+
+# .dynamorio config
+.dynamorio
