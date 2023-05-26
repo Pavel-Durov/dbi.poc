@@ -148,3 +148,5 @@ rsp            0x7fffffffc650      0x7fffffffc650
 - [Submitted documentation link fix](https://github.com/DynamoRIO/dynamorio/pull/6034)
 
 - [Building a Tool] (https://dynamorio.org/page_build_client.html)
+
+- https://eli.thegreenplace.net/2011/09/06/stack-frame-layout-on-x86-64
