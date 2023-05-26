@@ -2,4 +2,4 @@
 
 # set -eu
 
-rm -fr ./build && cmake -DCMAKE_BUILD_TYPE=Debug -S  . -B ./build && pushd build && make && popd
+rm -fr ./build && cmake -DCMAKE_C_FLAGS="-g2" -DCMAKE_BUILD_TYPE=Debug -S  . -B ./build && pushd build && make VERBOSE=1 && popd

@@ -120,6 +120,10 @@ rsp            0x7fffabf776a8      0x7fffabf776a8
 rsp            0x7fffffffc650      0x7fffffffc650
 ```
 
+### Misc
+```
+(gdp) disassemble main # Dump of assembler code for function main
+```
 # Forum
 
 [Google Groups](https://groups.google.com/g/dynamorio-users)

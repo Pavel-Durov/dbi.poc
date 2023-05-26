@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.22)
 
 set(CMAKE_BUILD_TYPE Debug)
-if ("${CMAKE_BUILD_TYPE}" MATCHES "Debug")
-  set(DEBUG ON)
-endif ("${CMAKE_BUILD_TYPE}" MATCHES "Debug")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
+set(DEBUG ON)
 
 project(hello_world)
 
@@ -18,6 +18,7 @@ endif(NOT DynamoRIO_FOUND)
 
 # hello world
 add_library(hello_world_client SHARED src/hello_world/hello_world_client.cpp)
-add_executable(hello_world "src/hello_world/hello_world_app.cpp")
 
 configure_DynamoRIO_client(hello_world_client)
+
+add_executable(hello_world "src/hello_world/hello_world_app.cpp")
