@@ -21,6 +21,6 @@ jobs:
       with:
         cmake-version: '3.22.1'
     - name: build
-      run: cmake -DCMAKE_BUILD_TYPE=Debug -DDynamoRIO_DIR=${PWD}/DynamoRIO-Linux-9.0.1/cmake -S  . -B ./build && cd build && make
+      run: cmake -DCMAKE_BUILD_TYPE=Debug -DDynamoRIO_DIR=${PWD}/DynamoRIO-Linux-9.0.1/cmake -S  . -B ./build && cd build && make VERBOSE=1
     - name: file types
       run: file ./build/hello_world && file ./build/libhello_world_client.so
