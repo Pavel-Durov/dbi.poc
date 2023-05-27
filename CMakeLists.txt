@@ -4,9 +4,14 @@ set(CMAKE_BUILD_TYPE Debug)
 
 project(hello_world)
 
-# which compilers to use for C and C++
+# compilers set
 SET(CMAKE_C_COMPILER gcc)
 SET(CMAKE_CXX_COMPILER g++)
+
+# debug mode
+set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
 
 # Directory for dynamoRIO application config files
 make_directory("dynamorio_config")
