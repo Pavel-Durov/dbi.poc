@@ -1,0 +1,26 @@
+name: stack-overflow-76346620
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:    
+    - uses: actions/checkout@v3
+    - name: Install DynamoRIO
+      run: |
+        wget -q -O dynamorio.tar.gz https://github.com/DynamoRIO/dynamorio/releases/download/release_9.0.1/DynamoRIO-Linux-9.0.1.tar.gz
+        tar -xzf dynamorio.tar.gz
+        export PATH=${PATH}:${PWD}/DynamoRIO-Linux-9.0.1/bin64
+        export DRIO_HOME=${PWD}/DynamoRIO-Linux-9.0.1
+    - name: Setup newer cmake
+      uses: jwlawson/actions-setup-cmake@v1.8
+      with:
+        cmake-version: '3.22.1'
+    - name: build
+      run: cmake -DCMAKE_BUILD_TYPE=Debug -DDynamoRIO_DIR=${PWD}/DynamoRIO-Linux-9.0.1/cmake -S  . -B ./build && cd build && make
+    - name: file types
+      run: file ./build/hello_world && file ./build/libhello_world_client.so
