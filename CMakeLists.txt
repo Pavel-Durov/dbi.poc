@@ -1,9 +1,6 @@
 cmake_minimum_required(VERSION 3.22)
 
 set(CMAKE_BUILD_TYPE Debug)
-if ("${CMAKE_BUILD_TYPE}" MATCHES "Debug")
-  set(DEBUG ON)
-endif ("${CMAKE_BUILD_TYPE}" MATCHES "Debug")
 
 project(hello_world)
 
