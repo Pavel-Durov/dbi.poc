@@ -106,8 +106,11 @@ gdb --args "${DRIO_HOME}/bin64/drrun" -c ./build/libhello_world_client.so -- ls
 
 ```gdb
 (gdb) start # Start the debugged program stopping at the beginning of the main procedure.
+(gdb) break dr_client_main
+(gdb) break syscall_ready
+(gdb) continue
 (gdb) info registers $rsp
-rsp            0x7ffde9cb3318      0x7ffde9cb3318
+rsp            0x7fff7f58c118      0x7fff7f58c118
 (gdb) continue
 (gdb) dps $rsp 0x7ffde9cb3318
 ```
@@ -123,6 +126,7 @@ rsp            0x7fffffffc650      0x7fffffffc650
 ### Misc
 ```
 (gdp) disassemble main # Dump of assembler code for function main
+(gdp) delete breakpoints # Delete all breakpoints
 ```
 # Forum
 
