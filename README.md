@@ -96,23 +96,26 @@ gdb --args "${DRIO_HOME}/bin64/drrun" -c ./build/libhello_world_client.so -- ls
 ## Commands
 
 ### Registers
+[docs](https://sourceware.org/gdb/onlinedocs/gdb/Registers.html)
 ```gdb
 (gdb) info registers # list all registers, aka "i r"
 (gdb) info registers rsp # shows one register
 (gdb) layout regs # continue show registers, with TUI mode.```
 ```
 
+
+0x7ffdb9741a10
+
 ## Obtaining callstack
 
 ```gdb
 (gdb) start # Start the debugged program stopping at the beginning of the main procedure.
-(gdb) break dr_client_main
-(gdb) break syscall_ready
-(gdb) continue
+(gdb) catch signal SIGSEGV
+(gdb) continue # continue on SIGILL
 (gdb) info registers $rsp
-rsp            0x7fff7f58c118      0x7fff7f58c118
+rsp            0x7ffdb9741a10      0x7ffdb9741a10
 (gdb) continue
-(gdb) dps $rsp 0x7ffde9cb3318
+(gdb) dps $rsp 0x7ffdb9741a10
 ```
 
 ### Obtaining current stack pointer (SP) value:
