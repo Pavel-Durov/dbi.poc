@@ -1,4 +1,4 @@
-name: build and run
+name: pr-ci
 
 on:
   push:
