@@ -1,5 +1,0 @@
-#!/bin/bash
-
-# set -eu
-
-rm -fr ./build && cmake . -B ./build && pushd build && make VERBOSE=1 && popd
