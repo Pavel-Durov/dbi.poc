@@ -2,4 +2,4 @@
 
 set -eu
 
-gdb --args  gdb -- "${DRIO_HOME}/bin64/drrun" -c ./build/libhello_world_client.so -- ls
+gdb --args "${DRIO_HOME}/bin64/drrun" -c ./build/libhello_world_client.so -- ls
