@@ -103,9 +103,6 @@ gdb --args "${DRIO_HOME}/bin64/drrun" -c ./build/libhello_world_client.so -- ls
 (gdb) layout regs # continue show registers, with TUI mode.```
 ```
 
-
-0x7ffdb9741a10
-
 ## Obtaining callstack
 
 ```gdb
@@ -113,9 +110,9 @@ gdb --args "${DRIO_HOME}/bin64/drrun" -c ./build/libhello_world_client.so -- ls
 (gdb) catch signal SIGSEGV
 (gdb) continue # continue on SIGILL
 (gdb) info registers $rsp
-rsp            0x7ffdb9741a10      0x7ffdb9741a10
+rsp            0x7ffd00b71d78      0x7ffd00b71d78
 (gdb) continue
-(gdb) dps $rsp 0x7ffdb9741a10
+(gdb) dps $rsp 0x7ffd00b71d78
 ```
 
 ### Obtaining current stack pointer (SP) value:
