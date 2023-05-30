@@ -1,4 +1,4 @@
-name: internal-crash-reproduction
+name: should-crash-reproduction
 
 on:
   push:
