@@ -6,7 +6,7 @@ WORKDIR /app
 
 RUN wget -q https://github.com/DynamoRIO/dynamorio/releases/download/release_9.0.1/DynamoRIO-Linux-9.0.1.tar.gz -O ./dynamorio.tar.gz
 RUN tar -xzf ./dynamorio.tar.gz
-ENV DRIO_HOME="app/DynamoRIO-Linux-9.0.1"
+ENV DRIO_HOME="/app/DynamoRIO-Linux-9.0.1"
 
 RUN sudo apt update
 RUN sudo apt install shellcheck
