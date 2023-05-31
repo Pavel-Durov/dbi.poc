@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -eu
+
+SHA=$(git rev-parse HEAD)
+docker image tag "dynamorio-poc:${SHA}" "iamkimchi/dynamorio-poc:${SHA}"
+docker image push "iamkimchi/dynamorio-poc:${SHA}"

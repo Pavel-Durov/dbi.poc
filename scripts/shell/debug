@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -eu
+
+gdb --args "${DRIO_HOME}/bin64/drrun" -c ./build/libhello_world_client.so -- ls

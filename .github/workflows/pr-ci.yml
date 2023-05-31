@@ -1,0 +1,34 @@
+name: pr-ci
+
+on:
+  push:
+    branches-ignore: [ "main" ]
+  pull_request:
+    branches: [ "*" ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install dependencies
+      run: sudo apt install shellcheck
+    - name: Shell Lint
+      run: shellcheck ./scripts/shell/*
+
+  build_and_run:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install DynamoRIO
+      run: |
+        wget -q -O dynamorio.tar.gz https://github.com/DynamoRIO/dynamorio/releases/download/release_9.0.1/DynamoRIO-Linux-9.0.1.tar.gz
+        tar -xzf dynamorio.tar.gz
+    - name: Setup newer cmake
+      uses: jwlawson/actions-setup-cmake@v1.8
+      with:
+        cmake-version: '3.22.1'
+    - name: build
+      run: cmake -DCMAKE_BUILD_TYPE=Debug -DDynamoRIO_DIR=${PWD}/DynamoRIO-Linux-9.0.1/cmake -S  . -B ./build && cd build && make
+    - name: run hello-world client
+      run: ${PWD}/DynamoRIO-Linux-9.0.1/bin64/drrun -c ./build/libhello_world_client.so -- ./build/hello_world

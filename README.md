@@ -79,6 +79,55 @@ When running scripts it is best to explicitly invoke the interpreter rather than
 $ drrun -- /bin/bash myscript.sh
 ```
 
+# GDB
+
+## Launching From GDB
+
+[gdb local config](.gdbinit)
+
+> To enable execution of this .gdbinit file add the follwoing line to global `~/.gdbinit` file: 
+
+`add-auto-load-safe-path path/to/.gdbinit` 
+
+[original docs](https://dynamorio.org/page_debugging.html#autotoc_md141)
+```shell
+gdb --args "${DRIO_HOME}/bin64/drrun" -c ./build/libhello_world_client.so -- ls
+```
+## Commands
+
+### Registers
+[docs](https://sourceware.org/gdb/onlinedocs/gdb/Registers.html)
+```gdb
+(gdb) info registers # list all registers, aka "i r"
+(gdb) info registers rsp # shows one register
+(gdb) layout regs # continue show registers, with TUI mode.```
+```
+
+## Obtaining callstack
+
+```gdb
+(gdb) start # Start the debugged program stopping at the beginning of the main procedure.
+(gdb) catch signal SIGSEGV
+(gdb) continue # continue on SIGILL
+(gdb) info registers $rsp
+rsp            0x7ffd00b71d78      0x7ffd00b71d78
+(gdb) continue
+(gdb) dps $rsp 0x7ffd00b71d78
+```
+
+### Obtaining current stack pointer (SP) value:
+```
+(gdb) info registers $rsp # x86_64
+rsp            0x7fffabf776a8      0x7fffabf776a8
+(gdb) info registers $esp # x86
+rsp            0x7fffffffc650      0x7fffffffc650
+```
+
+### Misc
+```
+(gdp) disassemble main # Dump of assembler code for function main
+(gdp) delete breakpoints # Delete all breakpoints
+```
 # Forum
 
 [Google Groups](https://groups.google.com/g/dynamorio-users)
@@ -107,3 +156,5 @@ $ drrun -- /bin/bash myscript.sh
 - [Submitted documentation link fix](https://github.com/DynamoRIO/dynamorio/pull/6034)
 
 - [Building a Tool] (https://dynamorio.org/page_build_client.html)
+
+- https://eli.thegreenplace.net/2011/09/06/stack-frame-layout-on-x86-64

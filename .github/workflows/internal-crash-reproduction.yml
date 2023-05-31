@@ -1,17 +1,16 @@
-name: build and run
+name: should-crash-reproduction
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: [ "crash/*" ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  reproduce-internal-crash:
+    runs-on: ubuntu-22.04
     steps:
-    
     - uses: actions/checkout@v3
+    - name: OS Info
+      run: uname -a
     - name: Install DynamoRIO
       run: |
         wget -q -O dynamorio.tar.gz https://github.com/DynamoRIO/dynamorio/releases/download/release_9.0.1/DynamoRIO-Linux-9.0.1.tar.gz
@@ -24,5 +23,5 @@ jobs:
         cmake-version: '3.22.1'
     - name: build
       run: cmake -DCMAKE_BUILD_TYPE=Debug -DDynamoRIO_DIR=${PWD}/DynamoRIO-Linux-9.0.1/cmake -S  . -B ./build && cd build && make
-    - name: run hello-world client
-      run: ${PWD}/DynamoRIO-Linux-9.0.1/bin64/drrun -c ./build/libhello_world_client.so -- ./build/hello_world
+    - name: run hello-world client on ls binary
+      run: ${PWD}/DynamoRIO-Linux-9.0.1/bin64/drrun -c ./build/libhello_world_client.so -- /usr/bin/ls
