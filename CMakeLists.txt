@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.22)
 
 set(CMAKE_BUILD_TYPE Debug)
 
-project(hello_world)
+project(dynamorio_exp)
 
 # compilers set
 SET(CMAKE_C_COMPILER gcc)
@@ -21,13 +21,18 @@ if (NOT DynamoRIO_FOUND)
   message(FATAL_ERROR "dynamically package required to build")
 endif(NOT DynamoRIO_FOUND)
 
-function (add_client name file_source)
-  add_library(hello_world_client SHARED ${file_source})
-  configure_DynamoRIO_client(hello_world_client)
+function (add_client name source_file_list)
+  add_library(${name} SHARED ${source_file_list})
+  configure_DynamoRIO_client(${name})
 endfunction (add_client)
 
+# set the global vars ahead of time
+configure_DynamoRIO_global(OFF ON)
+
 # dynamorio clients
-add_client(hello_world_client "src/hello_world/hello_world_client.cpp")
+add_client("hello_world_client" "src/hello_world/hello_world_client.cpp")
+add_client("average_bb_size_client" "src/average_bb_size/average_bb_size_client.cpp")
+
 
 # executables
 add_executable(hello_world "src/hello_world/hello_world_app.cpp")
