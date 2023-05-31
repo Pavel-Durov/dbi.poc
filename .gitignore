@@ -60,3 +60,6 @@ build
 
 # .dynamorio config
 .dynamorio
+
+# gdb session history
+.gdb_history

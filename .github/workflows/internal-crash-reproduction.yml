@@ -6,10 +6,11 @@ on:
 
 jobs:
   reproduce-internal-crash:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
-    
     - uses: actions/checkout@v3
+    - name: OS Info
+      run: uname -a
     - name: Install DynamoRIO
       run: |
         wget -q -O dynamorio.tar.gz https://github.com/DynamoRIO/dynamorio/releases/download/release_9.0.1/DynamoRIO-Linux-9.0.1.tar.gz
