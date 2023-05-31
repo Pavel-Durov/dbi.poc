@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -eu
+
+SHA=$(git rev-parse HEAD)
+docker build -f ./Dockerfile  . -t "dynamorio-poc:${SHA}"
