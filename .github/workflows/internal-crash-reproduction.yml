@@ -2,9 +2,7 @@ name: should-crash-reproduction
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: [ "crash/*" ]
 
 jobs:
   reproduce-internal-crash:
