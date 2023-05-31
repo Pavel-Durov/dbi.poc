@@ -1,6 +1,9 @@
 {
-	"name": "Ubuntu",
-	"build": {
-        "dockerfile": "../Dockerfile"
-    }
+  "name": "Ubuntu",
+  "build": {
+    "dockerfile": "../Dockerfile"
+  },
+  "mounts": [
+    "type=bind,source=/home/kimchi/.ssh,target=/home/vscode/.ssh,readonly"
+  ]
 }
