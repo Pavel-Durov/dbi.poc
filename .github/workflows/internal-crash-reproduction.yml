@@ -13,15 +13,15 @@ jobs:
       run: uname -a
     - name: Install DynamoRIO
       run: |
-        wget -q -O dynamorio.tar.gz https://github.com/DynamoRIO/dynamorio/releases/download/release_9.0.1/DynamoRIO-Linux-9.0.1.tar.gz
+        wget -q -O dynamorio.tar.gz https://github.com/DynamoRIO/dynamorio/releases/download/release_9.0.1/DynamoRIO-Linux-9.93.19503.tar.gz
         tar -xzf dynamorio.tar.gz
-        export PATH=${PATH}:${PWD}/DynamoRIO-Linux-9.0.1/bin64
-        export DRIO_HOME=${PWD}/DynamoRIO-Linux-9.0.1
+        export PATH=${PATH}:${PWD}/DynamoRIO-Linux-9.93.19503/bin64
+        export DRIO_HOME=${PWD}/DynamoRIO-Linux-9.93.19503
     - name: Setup newer cmake
       uses: jwlawson/actions-setup-cmake@v1.8
       with:
         cmake-version: '3.22.1'
     - name: build
-      run: cmake -DCMAKE_BUILD_TYPE=Debug -DDynamoRIO_DIR=${PWD}/DynamoRIO-Linux-9.0.1/cmake -S  . -B ./build && cd build && make
+      run: cmake -DCMAKE_BUILD_TYPE=Debug -DDynamoRIO_DIR=${PWD}/DynamoRIO-Linux-9.93.19503/cmake -S  . -B ./build && cd build && make
     - name: run hello-world client on ls binary
-      run: ${PWD}/DynamoRIO-Linux-9.0.1/bin64/drrun -c ./build/libhello_world_client.so -- /usr/bin/ls
+      run: ${PWD}/DynamoRIO-Linux-9.93.19503/bin64/drrun -c ./build/libhello_world_client.so -- /usr/bin/ls
