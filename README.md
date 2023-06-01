@@ -134,9 +134,13 @@ rsp            0x7fffffffc650      0x7fffffffc650
 
 ## Realted Google Groups Threads
 
-- https://groups.google.com/g/dynamorio-users/c/ryuj9Eg1khE
+- [bbdynsize tutorial - build error](https://groups.google.com/g/dynamorio-users/c/BWVdySjLUn8)
 
-- https://groups.google.com/g/dynamorio-users/c/Wqx9sKFOn2k
+- [Floating point exception when running bbdynsize tutorial](https://groups.google.com/g/dynamorio-users/c/q89Noup9Zn0)
+
+- [Internal crash when running simple DynamoRIO client](https://groups.google.com/g/dynamorio-users/c/Wqx9sKFOn2k)
+
+- [dynamorio tutorial - how to run the example](https://groups.google.com/g/dynamorio-users/c/ryuj9Eg1khE)
 
 # Resources & Links
 - [Debugging](https://dynamorio.org/page_debugging.html#autotoc_md138)
