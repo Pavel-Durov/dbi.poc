@@ -88,11 +88,11 @@ static dr_emit_flags_t event_basic_block(void *drcontext, void *tag, instrlist_t
      /* increment counters */
     if (eflags_saved) {
         where = instrlist_first(bb);
+        // Looks like its causing 0 Segmentation fault (core dumped)
         dr_save_arith_flags(drcontext, bb, where, SPILL_SLOT_1);
     }
 
      // Deprecated: This routine is equivalent to dr_save_reg() followed by dr_save_arith_flags_to_xax().
-    dr_save_arith_flags(drcontext, bb, where, SPILL_SLOT_1);
  #ifdef X86_32
      /* Since the counters are 64-bit we must use an add + an addc to increment.
       * The operations is still effectively atomic since we're only increasing
