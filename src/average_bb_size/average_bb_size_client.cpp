@@ -78,7 +78,7 @@ static dr_emit_flags_t event_basic_block(void *drcontext, void *tag, instrlist_t
     counts_as_built.total_size += num_instructions;
     dr_mutex_unlock(as_built_lock);
     // insert clean call - https://dynamorio.org/dr__ir__utils_8h.html#a1df44dbe3d8dbf82e63e96741f167c64
-    dr_insert_clean_call(drcontext, bb, instrlist_first(bb), clean_call, false, 1, OPND_CREATE_INT32(num_instructions));
+    dr_insert_clean_call(drcontext, bb, instrlist_first(bb), (void *)clean_call, false, 1, OPND_CREATE_INT32(num_instructions));
 
     return DR_EMIT_DEFAULT;
 }
