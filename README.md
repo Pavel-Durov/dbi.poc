@@ -72,11 +72,14 @@ To traverse only application (NON-meta) instructions, a client can use the follo
 [instrlist_first_app()](https://dynamorio.org/dr__ir__instrlist_8h.html#a623d9a44310e4d3373f266633ee07322)
 
 
-Meta instructions are marked using these API routines:
+### Arithmetic flags
 
-[instrlist_meta_preinsert](https://dynamorio.org/dr__ir__utils_8h.html#a4c8c687663c2f51e60e564ca9626acea)
+[dr_restore_arith_flags()](https://dynamorio.org/dr__ir__utils_8h.html#a31b8fd731ecc840fcddda04c36a7eadd)
+[dr_save_arith_flags()](https://dynamorio.org/dr__ir__utils_8h.html#abd9f556b8175c4ac72d8e7df8295f121)
 
-
+Six flags in the flags register, are used to monitor the outcome of the arithmetic, logical, and related operations.
+The six flags are the zero flag (ZF), carry flag (CF), overflow flag (OF), sign flag (SF), auxiliary flag (AF),
+and parity flag (PF). These six flags are referred to as the status flags.
 
 # Tutorials
 
@@ -146,7 +149,7 @@ gdb --args "${DRIO_HOME}/bin64/drrun" -c ./build/libhello_world_client.so -- ls
 (gdb) info registers $rsp
 rsp            0x7ffd00b71d78      0x7ffd00b71d78
 (gdb) continue
-(gdb) dps $rsp 0x7ffd00b71d78
+(gdb) dps $rsp 0x7ffc6c49acf8
 ```
 
 ### Obtaining current stack pointer (SP) value:
@@ -167,6 +170,8 @@ rsp            0x7fffffffc650      0x7fffffffc650
 [Google Groups](https://groups.google.com/g/dynamorio-users)
 
 ## Realted Google Groups Threads
+
+- [Clarifiaction about the use of dps function](https://groups.google.com/g/dynamorio-users/c/6OnuqQgAnZ4)
 
 - [bbdynsize tutorial - build error](https://groups.google.com/g/dynamorio-users/c/BWVdySjLUn8)
 

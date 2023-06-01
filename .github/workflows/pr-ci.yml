@@ -30,3 +30,5 @@ jobs:
       run: cmake -DCMAKE_BUILD_TYPE=Debug -DDynamoRIO_DIR=${PWD}/DynamoRIO-Linux-9.93.19503/cmake -S  . -B ./build && cd build && make
     - name: run hello-world client
       run: ${PWD}/DynamoRIO-Linux-9.93.19503/bin64/drrun -c ./build/libhello_world_client.so -- ./build/hello_world
+    - name: run libaverage_bb_size client
+      run: ${PWD}/DynamoRIO-Linux-9.93.19503/bin64/drrun -c ./build/libaverage_bb_size_client.so -- ./build/hello_world
