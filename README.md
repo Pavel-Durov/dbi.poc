@@ -44,6 +44,40 @@ flowchart
     DRIO --> HW(Hardware platform)
 ```
 
+## DynamoRIO Clean Calls
+
+[docs](https://dynamorio.org/API_BT.html)
+
+DynamoRIO API provides a clean call mechanism, which allows insertion of a transparent call to a DynamoRIO client routine.
+The [dr_insert_clean_call](https://dynamorio.org/dr__ir__utils_8h.html#a1df44dbe3d8dbf82e63e96741f167c64) routine takes care of switching to a clean stack, setting up arguments to a call and making the call, optionally preserving floating point state, and preserving application state across the entire sequence.
+
+## DynamoRIO Meta Instructions
+
+Changes to the instruction stream (`ilist`) made by a DynamoRIO client fall into two categories:
+1. Changes or additions that should be considered part of the application's behavior,
+2. Additions that are observational in nature and are not acting on the application's behalf - aka called meta instructions.
+
+Meta-instructions:
+[instr_set_meta()](https://dynamorio.org/dr__ir__instr_8h.html#a7bd1a4d1621b685541e8c28426a0cfe4)
+[instrlist_meta_preinsert()](https://dynamorio.org/dr__ir__utils_8h.html#a4c8c687663c2f51e60e564ca9626acea)
+[instrlist_meta_postinsert()](https://dynamorio.org/dr__ir__utils_8h.html#ad513dfc5199e89c7d22a271afa692b65)
+[instrlist_meta_append()](https://dynamorio.org/dr__ir__utils_8h.html#a376024b7b2d33e3a86ec3544b80f645c)
+
+
+Meta instructions are normally observational, in which case they should not fault and should have a NULL translation field. It is possible to use meta instructions that deliberately fault, or that could fault by accessing application memory addresses, but only if the client handles all such faults.
+
+To traverse only application (NON-meta) instructions, a client can use the following API functions:
+
+[instr_get_next_app()](https://dynamorio.org/dr__ir__instr_8h.html#a4582a4fd2729419bfc1d0c5dfeb86ab9)
+[instrlist_first_app()](https://dynamorio.org/dr__ir__instrlist_8h.html#a623d9a44310e4d3373f266633ee07322)
+
+
+Meta instructions are marked using these API routines:
+
+[instrlist_meta_preinsert](https://dynamorio.org/dr__ir__utils_8h.html#a4c8c687663c2f51e60e564ca9626acea)
+
+
+
 # Tutorials
 
 [IN PROGRESS] API Usage Tutorial - https://dynamorio.org/API_tutorial_bbdynsize1.html

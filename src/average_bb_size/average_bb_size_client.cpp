@@ -54,14 +54,6 @@ static void event_exit(void)
     dr_mutex_destroy(count_lock);
 }
 
-static void clean_call(uint instruction_count)
-{
-    dr_mutex_lock(count_lock);
-    counts_dynamic.blocks++;
-    counts_dynamic.total_size += instruction_count;
-    dr_mutex_unlock(count_lock);
-}
-
 static dr_emit_flags_t event_basic_block(void *drcontext, void *tag, instrlist_t *bb, bool for_trace, bool translating)
 {
     uint num_instructions = 0;
@@ -77,8 +69,41 @@ static dr_emit_flags_t event_basic_block(void *drcontext, void *tag, instrlist_t
     counts_as_built.blocks++;
     counts_as_built.total_size += num_instructions;
     dr_mutex_unlock(as_built_lock);
-    // insert clean call - https://dynamorio.org/dr__ir__utils_8h.html#a1df44dbe3d8dbf82e63e96741f167c64
-    dr_insert_clean_call(drcontext, bb, instrlist_first(bb), (void *)clean_call, false, 1, OPND_CREATE_INT32(num_instructions));
+
+     /* increment counters */
+     instr_t *where = instrlist_first(bb);
+     dr_save_arith_flags(drcontext, bb, where, SPILL_SLOT_1);
+ #ifdef X86_32
+     /* Since the counters are 64-bit we must use an add + an addc to increment.
+      * The operations is still effectively atomic since we're only increasing
+      * the count. */
+     instrlist_meta_preinsert(bb, where,
+         LOCK(INSTR_CREATE_add(drcontext,
+                               OPND_CREATE_ABSMEM((byte *)&counts_dynamic.blocks, OPSZ_4),
+                               OPND_CREATE_INT8(1))));
+     instrlist_meta_preinsert(bb, where,
+         LOCK(INSTR_CREATE_adc(drcontext,
+                               OPND_CREATE_ABSMEM((byte *)&counts_dynamic.blocks + 4, OPSZ_4),
+                               OPND_CREATE_INT8(0))));
+
+     instrlist_meta_preinsert(bb, where,
+         LOCK(INSTR_CREATE_add(drcontext,
+                               OPND_CREATE_ABSMEM((byte *)&counts_dynamic.total_size, OPSZ_4),
+                               OPND_CREATE_INT_32OR8(num_instructions))));
+     instrlist_meta_preinsert(bb, where,
+         LOCK(INSTR_CREATE_adc(drcontext,
+                               OPND_CREATE_ABSMEM((byte *)&counts_dynamic.total_size + 4, OPSZ_4),
+                               OPND_CREATE_INT8(0))));
+ #else /* X86_64 */
+     instrlist_meta_preinsert(bb, where,
+         LOCK(INSTR_CREATE_inc(drcontext,
+                               OPND_CREATE_ABSMEM((byte *)&counts_dynamic.blocks, OPSZ_8))));
+     instrlist_meta_preinsert(bb, where,
+         LOCK(INSTR_CREATE_add(drcontext,
+                               OPND_CREATE_ABSMEM((byte *)&counts_dynamic.total_size, OPSZ_8),
+                               OPND_CREATE_INT_32OR8(num_instructions))));
+ #endif
+     dr_restore_arith_flags(drcontext, bb, where, SPILL_SLOT_1);
 
     return DR_EMIT_DEFAULT;
 }
