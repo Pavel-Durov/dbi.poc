@@ -201,3 +201,5 @@ rsp            0x7fffffffc650      0x7fffffffc650
 - [Building a Tool] (https://dynamorio.org/page_build_client.html)
 
 - https://eli.thegreenplace.net/2011/09/06/stack-frame-layout-on-x86-64
+
+- https://xl10.github.io/blog/drcctprof.html
