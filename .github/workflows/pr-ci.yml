@@ -5,7 +5,7 @@ on:
     branches: [ "*" ]
 
 jobs:
-  lint:
+  shell-check:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -14,15 +14,14 @@ jobs:
     - name: Shell Lint
       run: shellcheck ./scripts/shell/*
 
-  build_and_run:
+  hello_world_client:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Install DynamoRIO
       run: |
-        wget -q -O dynamorio.tar.gz https://github.com/DynamoRIO/dynamorio/releases/download/cronbuild-9.93.19503/DynamoRIO-Linux-9.93.19503.tar.gz
-        tar -xzf dynamorio.tar.gz
-    - name: Setup newer cmake
+        wget -q -O dynamorio.tar.gz https://github.com/DynamoRIO/dynamorio/releases/download/cronbuild-9.93.19503/DynamoRIO-Linux-9.93.19503.tar.gz && tar -xzf dynamorio.tar.gz
+    - name: Setup cmake
       uses: jwlawson/actions-setup-cmake@v1.8
       with:
         cmake-version: '3.22.1'
@@ -30,5 +29,19 @@ jobs:
       run: cmake -DCMAKE_BUILD_TYPE=Debug -DDynamoRIO_DIR=${PWD}/DynamoRIO-Linux-9.93.19503/cmake -S  . -B ./build && cd build && make
     - name: run hello-world client
       run: ${PWD}/DynamoRIO-Linux-9.93.19503/bin64/drrun -c ./build/libhello_world_client.so -- ./build/hello_world
-    - name: run libaverage_bb_size client
-      run: ${PWD}/DynamoRIO-Linux-9.93.19503/bin64/drrun -c ./build/libaverage_bb_size_client.so -- ./build/hello_world
+
+  average_bb_size_client:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install DynamoRIO
+      run: |
+        wget -q -O dynamorio.tar.gz https://github.com/DynamoRIO/dynamorio/releases/download/cronbuild-9.93.19503/DynamoRIO-Linux-9.93.19503.tar.gz && tar -xzf dynamorio.tar.gz
+    - name: Setup cmake
+      uses: jwlawson/actions-setup-cmake@v1.8
+      with:
+        cmake-version: '3.22.1'
+    - name: build
+      run: cmake -DCMAKE_BUILD_TYPE=Debug -DDynamoRIO_DIR=${PWD}/DynamoRIO-Linux-9.93.19503/cmake -S  . -B ./build && cd build && make
+    - name: run hello-world client
+      run: ${PWD}/DynamoRIO-Linux-9.93.19503/bin64/drrun -c ./build/libhello_world_client.so -- ./build/hello_world
