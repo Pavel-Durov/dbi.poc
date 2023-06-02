@@ -118,47 +118,65 @@ static dr_emit_flags_t event_basic_block(void *drcontext, void *tag, instrlist_t
      /* increment counters */
     if (eflags_saved) {
         where = instrlist_first(bb);
-        // Looks like its causing 0 Segmentation fault (core dumped)
         // Deprecated: This routine is equivalent to dr_save_reg() followed by dr_save_arith_flags_to_xax().
         dr_save_arith_flags(drcontext, bb, where, SPILL_SLOT_1);
     }
-    /* Spill a register to get a pointer to our TLS structure. */
-    dr_save_reg(drcontext, bb, where, DR_REG_XDI, SPILL_SLOT_2);
-    dr_insert_read_tls_field(drcontext, bb, where, DR_REG_XDI);
+    /* If all thread-private caches we can use direct addressing. */
+    if (!dr_using_all_private_caches()) {
+        /* Spill a register to get a pointer to our TLS structure. */
+        dr_save_reg(drcontext, bb, where, DR_REG_XDI, SPILL_SLOT_2);
+        dr_insert_read_tls_field(drcontext, bb, where, DR_REG_XDI);
+    }
 
  #ifdef X86_32
-     /* Since the counters are 64-bit we must use an add + an addc to increment.
-      * The operations is still effectively atomic since we're only increasing
-      * the count. */
-     instrlist_meta_preinsert(bb, where,
+    /* Since the counters are 64-bit we must use an add an addc to increment.
+     * The operations is still effectively atomic since we're only increasing
+     * the count. */
+    instrlist_meta_preinsert(bb, where,
         INSTR_CREATE_add(drcontext,
-                               OPND_CREATE_ABSMEM((byte *)&counts_dynamic.blocks, OPSZ_4),
-                               OPND_CREATE_INT8(1)));
-     instrlist_meta_preinsert(bb, where,
+                         dr_using_all_private_caches() ?
+                           OPND_CREATE_ABSMEM((byte *)&counts->blocks, OPSZ_4) :
+                           OPND_CREATE_MEM32(DR_REG_XDI, offsetof(bb_counts, blocks)),
+                         OPND_CREATE_INT8(1)));
+    instrlist_meta_preinsert(bb, where,
         INSTR_CREATE_adc(drcontext,
-                               OPND_CREATE_ABSMEM((byte *)&counts_dynamic.blocks + 4, OPSZ_4),
-                               OPND_CREATE_INT8(0)));
-
-     instrlist_meta_preinsert(bb, where,
-         INSTR_CREATE_add(drcontext,
-                               OPND_CREATE_ABSMEM((byte *)&counts_dynamic.total_size, OPSZ_4),
-                               OPND_CREATE_INT_32OR8(num_instructions)));
-     instrlist_meta_preinsert(bb, where,
-         INSTR_CREATE_adc(drcontext,
-                               OPND_CREATE_ABSMEM((byte *)&counts_dynamic.total_size + 4, OPSZ_4),
-                               OPND_CREATE_INT8(0)));
- #else /* X86_64 */
-     instrlist_meta_preinsert(bb, where,
-        INSTR_CREATE_inc(drcontext, OPND_CREATE_ABSMEM((byte *)&counts_dynamic.blocks, OPSZ_8)));
-     instrlist_meta_preinsert(bb, where,
+                        dr_using_all_private_caches() ?
+                          OPND_CREATE_ABSMEM((byte *)&counts->blocks +4, OPSZ_4) :
+                          OPND_CREATE_MEM32(DR_REG_XDI, offsetof(bb_counts, blocks)+4),
+                         OPND_CREATE_INT8(0)));
+ 
+    instrlist_meta_preinsert(bb, where,
         INSTR_CREATE_add(drcontext,
-            OPND_CREATE_ABSMEM((byte *)&counts_dynamic.total_size, OPSZ_8),
-            OPND_CREATE_INT_32OR8(num_instructions)));
- #endif
-    /* Restore spilled register. */
-    dr_restore_reg(drcontext, bb, where, DR_REG_XDI, SPILL_SLOT_2);
+                        dr_using_all_private_caches() ?
+                          OPND_CREATE_ABSMEM((byte *)&counts->total_size, OPSZ_4) :
+                          OPND_CREATE_MEM32(DR_REG_XDI, offsetof(bb_counts, total_size)),
+                         OPND_CREATE_INT_32OR8(num_instructions)));
+    instrlist_meta_preinsert(bb, where,
+        INSTR_CREATE_adc(drcontext,
+                        dr_using_all_private_caches() ?
+                          OPND_CREATE_ABSMEM((byte *)&counts->total_size +4, OPSZ_4) :
+                          OPND_CREATE_MEM32(DR_REG_XDI, offsetof(bb_counts, total_size)+4),
+                         OPND_CREATE_INT8(0)));
+#else /* X86_64 */
+    instrlist_meta_preinsert(bb, where,
+       INSTR_CREATE_inc(drcontext,
+                        dr_using_all_private_caches() ?
+                          OPND_CREATE_ABSMEM((byte *)&counts->blocks, OPSZ_8) :
+                          OPND_CREATE_MEM64(DR_REG_XDI, offsetof(bb_counts, blocks))));
+    instrlist_meta_preinsert(bb, where,
+       INSTR_CREATE_add(drcontext,
+                         dr_using_all_private_caches() ?
+                           OPND_CREATE_ABSMEM((byte *)&counts->total_size, OPSZ_8) :
+                           OPND_CREATE_MEM64(DR_REG_XDI, offsetof(bb_counts, total_size)),
+                        OPND_CREATE_INT_32OR8(num_instructions)));
+#endif
+    if (!dr_using_all_private_caches()) {
+        /* Restore spilled register. */
+        dr_restore_reg(drcontext, bb, where, DR_REG_XDI, SPILL_SLOT_2);
+    }
     if (eflags_saved) {
         dr_restore_arith_flags(drcontext, bb, where, SPILL_SLOT_1);
     }
+
     return DR_EMIT_DEFAULT;
 }
