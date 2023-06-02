@@ -105,7 +105,9 @@ and parity flag (PF). These six flags are referred to as the status flags.
 
 # Tutorials
 
-[IN PROGRESS] API Usage Tutorial - https://dynamorio.org/API_tutorial_bbdynsize1.html
+[X] API Usage Tutorial - https://dynamorio.org/API_tutorial_bbdynsize1.html
+
+[ ] Instruction Counting - https://css.csail.mit.edu/6.858/2010/labs/dr-docs/
 
 # Running on Linux
 
