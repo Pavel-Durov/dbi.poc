@@ -3,4 +3,3 @@
 set -eu
 
 "${DRIO_HOME}/bin64/drrun" -c ./build/libhello_world_client.so -- ./build/hello_world
-"${DRIO_HOME}/bin64/drrun" -c ./build/libaverage_bb_size_client.so -- ./build/hello_world

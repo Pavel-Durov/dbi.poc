@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -eu
+
+"${DRIO_HOME}/bin64/drrun" -thread_private -c ./build/libaverage_bb_size_client.so -- ./build/hello_world
