@@ -44,6 +44,28 @@ flowchart
     DRIO --> HW(Hardware platform)
 ```
 
+### DynamoRIO Common Events
+
+A client's primary interaction with the DynamoRIO runtime is through a set of callbacks:
+
+- Basic block and trace creation or deletion
+
+- Process initialization and exit
+
+- Thread initialization and exit
+
+- Fork child initialization (Linux-only); meant to be used for re-initialization of data structures and creation of new log files
+
+- Application library load and unload
+
+- Application fault or exception (signal on Linux)
+
+- System call interception: pre-system call, post-system call, and system call filtering by number
+
+- Signal interception (Linux-only)
+
+- Nudges - DynamoRIO tries not to create permanent extra threads (see Thread Transparency), a nudge mechanism is preferred for pushing data into the process.
+
 ## DynamoRIO Clean Calls
 
 [docs](https://dynamorio.org/API_BT.html)
@@ -101,12 +123,14 @@ $ drrun -c ${DRIO_HOME}/samples/bin64/libbbsize.so -- ls
 
 ## Application config
 
-The `drconfig` tool writes an application configuration file. DynamoRIO reads configuration file at runtime. Once each process name is configured, the `drinject` tool can be used to invoke the parent process. The `drrun` tool can also be used but it creates a temporary configuration file that will override settings requested via `drconfig`. 
+The `drconfig` tool writes an application configuration file. DynamoRIO reads configuration file at runtime. Once each process name is configured, the `drinject` tool can be used to invoke the parent process. The `drrun` tool can also be used but it creates a temporary configuration file that will override settings requested via `drconfig`.
 
-The configuration files are stored ${`DYNAMORIO_CONFIGDIR`}/.dynamorio/<APP_NAME>.config32 (or a config64 suffix for 64-bit). 
+The configuration files are stored ${`DYNAMORIO_CONFIGDIR`}/.dynamorio/<APP_NAME>.config32 (or a config64 suffix for 64-bit).
+
 If `DYNAMORIO_CONFIGDIR` is not set, $`HOME`/.dynamorio/<APP_NAME>.config32 is used; if neither is set, a temp directory will be used when creating new configuration files for configure-and-run execution. On Android, if neither /data/local/tmp nor the current working directory are writable, you will need to specify a writable directory by setting the `DYNAMORIO_CONFIGDIR` environment variable.
 
-There's also global configuration files in /etc/dynamorio/<APP_NAME>.config32 when a local configuration file is not found. `drconfig` does not support directly writing a global config file but such files can be copied from or modeled on local files.
+There's also global configuratio         */
+n files in /etc/dynamorio/<APP_NAME>.config32 when a local configuration file is not found. `drconfig` does not support directly writing a global config file but such files can be copied from or modeled on local files.
 
 ## Running Scripts
 
