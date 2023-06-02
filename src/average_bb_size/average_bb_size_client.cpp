@@ -35,6 +35,7 @@ DR_EXPORT void dr_client_main(client_id_t id, int argc, const char *argv[])
     dr_register_thread_exit_event(event_thread_exit);
    /* initialize lock */
    as_built_lock = dr_mutex_create();
+   count_lock = dr_mutex_create();
 }
 
 static void event_exit(void)
@@ -75,13 +76,13 @@ static void event_exit(void)
 
  static void event_thread_exit(void *drcontext)
  {
-     bb_counts *counts = (bb_counts *) dr_get_tls_field(drcontext);
-     /* NOTE - if we so choose we could report per-thread sizes here. */
-     dr_mutex_lock(count_lock);
-     counts_dynamic.blocks += counts->blocks;
-     counts_dynamic.total_size += counts->total_size;
-     dr_mutex_unlock(count_lock);
-     dr_thread_free(drcontext, counts, sizeof(bb_counts));
+    bb_counts *counts = (bb_counts *) dr_get_tls_field(drcontext);
+    /* NOTE - if we so choose we could report per-thread sizes here. */
+    dr_mutex_lock(count_lock);
+    counts_dynamic.blocks += counts->blocks;
+    counts_dynamic.total_size += counts->total_size;
+    dr_mutex_unlock(count_lock);
+    dr_thread_free(drcontext, counts, sizeof(bb_counts));
  }
 
 static dr_emit_flags_t event_basic_block(void *drcontext, void *tag, instrlist_t *bb, bool for_trace, bool translating)
