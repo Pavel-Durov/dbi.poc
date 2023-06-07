@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -eu
+
+VERSION="9.93.19503"
+
+# DynamoRIO local download
+wget -q -O dynamorio.tar.gz "https://github.com/DynamoRIO/dynamorio/releases/download/cronbuild-${VERSION}/DynamoRIO-Linux-${VERSION}.tar.gz" \
+  && tar -xzf dynamorio.tar.gz \
+  && rm dynamorio.tar.gz

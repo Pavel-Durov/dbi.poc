@@ -63,3 +63,7 @@ build
 
 # gdb session history
 .gdb_history
+
+# DynamoRIO
+DynamoRIO-Linux-*
+dynamorio.tar.gz
