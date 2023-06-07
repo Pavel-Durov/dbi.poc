@@ -4,7 +4,7 @@ FROM --platform=linux/amd64 ubuntu:20.04
 WORKDIR /app
 
 RUN apt update
-RUN apt install wget build-essential -y
+RUN apt install wget build-essential gdb vim file -y
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.22.1/cmake-3.22.1-linux-x86_64.sh \
     -q -O /tmp/cmake-install.sh \
     && chmod u+x /tmp/cmake-install.sh \
