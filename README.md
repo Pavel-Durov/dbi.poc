@@ -197,6 +197,8 @@ rsp            0x7fffffffc650      0x7fffffffc650
 
 ## Realted Google Groups Threads
 
+- [DynamoRIO runtime manipulation optimisation example](https://groups.google.com/g/dynamorio-users/c/JPyNQmLmL8g)
+
 - [Clarifiaction about the use of dps function](https://groups.google.com/g/dynamorio-users/c/6OnuqQgAnZ4)
 
 - [bbdynsize tutorial - build error](https://groups.google.com/g/dynamorio-users/c/BWVdySjLUn8)

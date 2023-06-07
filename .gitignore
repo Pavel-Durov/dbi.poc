@@ -56,7 +56,7 @@ client.ldscript
 # build artefacts
 bin
 # cmake build
-build
+build/**
 
 # .dynamorio config
 .dynamorio
