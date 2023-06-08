@@ -2,4 +2,5 @@
 
 set -eu
 
-docker run -t dynamorio-local:latest --name dynamorio-local
+SHA=$(git rev-parse HEAD)
+docker run  -t "dynamorio-poc:${SHA}"

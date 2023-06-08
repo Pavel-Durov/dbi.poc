@@ -56,10 +56,14 @@ client.ldscript
 # build artefacts
 bin
 # cmake build
-build
+build/**
 
 # .dynamorio config
 .dynamorio
 
 # gdb session history
 .gdb_history
+
+# DynamoRIO
+DynamoRIO-Linux-*
+dynamorio.tar.gz

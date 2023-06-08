@@ -19,8 +19,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install DynamoRIO
-      run: |
-        wget -q -O dynamorio.tar.gz https://github.com/DynamoRIO/dynamorio/releases/download/cronbuild-9.93.19503/DynamoRIO-Linux-9.93.19503.tar.gz && tar -xzf dynamorio.tar.gz
+      run: bash ./scripts/shell/drio-setup
     - name: Setup cmake
       uses: jwlawson/actions-setup-cmake@v1.8
       with:
@@ -35,8 +34,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install DynamoRIO
-      run: |
-        wget -q -O dynamorio.tar.gz https://github.com/DynamoRIO/dynamorio/releases/download/cronbuild-9.93.19503/DynamoRIO-Linux-9.93.19503.tar.gz && tar -xzf dynamorio.tar.gz
+      run: bash ./scripts/shell/drio-setup
     - name: Setup cmake
       uses: jwlawson/actions-setup-cmake@v1.8
       with:

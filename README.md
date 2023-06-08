@@ -9,6 +9,12 @@ Repository containing code and documentation of my DynamoRIO framework experimen
 - Set `DRIO_HOME` varible in [.envrc](./.envrc), pointing towards where DynamoRIO is located on the machine.
 - Run `direnv allow`
 
+## Setup
+```shell
+$ drio-setup
+``` 
+> This command should download and setup local version of DynamoRIO framework.
+
 ## Build
 
 ```shell
@@ -196,6 +202,8 @@ rsp            0x7fffffffc650      0x7fffffffc650
 [Google Groups](https://groups.google.com/g/dynamorio-users)
 
 ## Realted Google Groups Threads
+
+- [DynamoRIO runtime manipulation optimisation example](https://groups.google.com/g/dynamorio-users/c/JPyNQmLmL8g)
 
 - [Clarifiaction about the use of dps function](https://groups.google.com/g/dynamorio-users/c/6OnuqQgAnZ4)
 

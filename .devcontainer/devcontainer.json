@@ -4,6 +4,7 @@
     "dockerfile": "../Dockerfile"
   },
   "mounts": [
-    "type=bind,source=/home/kimchi/.ssh,target=/home/vscode/.ssh,readonly"
+    "type=bind,source=/Users/kimchi/.ssh/,target=/home/vscode/.ssh,readonly"
+    // "type=bind,source=/home/kimchi/.ssh/,target=/home/vscode/.ssh,readonly"
   ]
 }
