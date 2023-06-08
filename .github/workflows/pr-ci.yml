@@ -43,3 +43,19 @@ jobs:
       run: cmake -DCMAKE_BUILD_TYPE=Debug -DDynamoRIO_DIR=${PWD}/DynamoRIO-Linux-9.93.19503/cmake -S  . -B ./build && cd build && make
     - name: run hello-world client
       run: ${PWD}/DynamoRIO-Linux-9.93.19503/bin64/drrun -c ./build/libhello_world_client.so -- ./build/hello_world
+
+  inc2add_app_client:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install DynamoRIO
+      run: bash ./scripts/shell/drio-setup
+    - name: Setup cmake
+      uses: jwlawson/actions-setup-cmake@v1.8
+      with:
+        cmake-version: '3.22.1'
+    - name: build
+      run: cmake -DCMAKE_BUILD_TYPE=Debug -DDynamoRIO_DIR=${PWD}/DynamoRIO-Linux-9.93.19503/cmake -S  . -B ./build && cd build && make
+    - name: run libinc2add_client client
+      run: |
+        "${PWD}/DynamoRIO-Linux-9.93.19503/bin64/drrun" -c ./build/libinc2add_client.so -- ./build/inc2add_app 666

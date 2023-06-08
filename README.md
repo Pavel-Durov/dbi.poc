@@ -203,6 +203,8 @@ rsp            0x7fffffffc650      0x7fffffffc650
 
 ## Realted Google Groups Threads
 
+- [Optimizing increment operation sample - inc2add.c](https://groups.google.com/g/dynamorio-users/c/frdl1hvU-UI)
+
 - [DynamoRIO runtime manipulation optimisation example](https://groups.google.com/g/dynamorio-users/c/JPyNQmLmL8g)
 
 - [Clarifiaction about the use of dps function](https://groups.google.com/g/dynamorio-users/c/6OnuqQgAnZ4)
