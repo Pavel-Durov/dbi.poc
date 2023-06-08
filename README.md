@@ -9,6 +9,12 @@ Repository containing code and documentation of my DynamoRIO framework experimen
 - Set `DRIO_HOME` varible in [.envrc](./.envrc), pointing towards where DynamoRIO is located on the machine.
 - Run `direnv allow`
 
+## Setup
+```shell
+$ drio-setup
+``` 
+> This command should download and setup local version of DynamoRIO framework.
+
 ## Build
 
 ```shell
