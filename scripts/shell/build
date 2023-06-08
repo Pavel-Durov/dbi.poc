@@ -2,5 +2,5 @@
 
 set -eu
 
-cmake -DCMAKE_BUILD_TYPE=Debug -DDynamoRIO_DIR=${PWD}/DynamoRIO-Linux-9.93.19503/cmake -S  . -B ./build && cd build && make
+cmake -DCMAKE_BUILD_TYPE=Debug -DDynamoRIO_DIR="${PWD}/DynamoRIO-Linux-9.93.19503/cmake" -S  . -B ./build && cd build && make
 
