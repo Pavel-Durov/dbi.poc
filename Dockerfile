@@ -21,7 +21,7 @@ RUN wget https://github.com/Kitware/CMake/releases/download/v3.22.1/cmake-3.22.1
 COPY . .
 
 # Install DynamoRIO
-RUN cd /app && bash /app/scripts/shell/drio-setup
+RUN cd /app && bash /app/scripts/shell/setup
 # cmake
 RUN rm -fr build && \
     cmake -DCMAKE_BUILD_TYPE=Debug \
