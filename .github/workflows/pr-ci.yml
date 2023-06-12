@@ -19,7 +19,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install DynamoRIO
-      run: bash ./scripts/shell/drio-setup
+      run: bash ./scripts/shell/setup
     - name: Setup cmake
       uses: jwlawson/actions-setup-cmake@v1.8
       with:
@@ -34,7 +34,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install DynamoRIO
-      run: bash ./scripts/shell/drio-setup
+      run: bash ./scripts/shell/setup
     - name: Setup cmake
       uses: jwlawson/actions-setup-cmake@v1.8
       with:
@@ -49,7 +49,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Install DynamoRIO
-      run: bash ./scripts/shell/drio-setup
+      run: bash ./scripts/shell/setup
     - name: Setup cmake
       uses: jwlawson/actions-setup-cmake@v1.8
       with:
